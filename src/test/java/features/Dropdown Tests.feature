@@ -13,7 +13,7 @@ Feature: Dropdown Tests
       And I verify the City Dropdown has the value selected for the City Dropdown
       But I verify the City Dropdown does not have the text "New York" selected
 
-  @84
+  @84 @MaterialUI
   Scenario: 84 Material UI Select
     Given I am on the Material UI Select Page
     When I select Twenty from the Age Dropdown

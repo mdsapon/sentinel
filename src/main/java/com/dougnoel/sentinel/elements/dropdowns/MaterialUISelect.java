@@ -2,10 +2,13 @@ package com.dougnoel.sentinel.elements.dropdowns;
 
 import java.util.Map;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+
+import com.dougnoel.sentinel.configurations.ConfigurationManager;
 
 /**
  * Implementation of an Material-UI Select.
@@ -39,7 +42,9 @@ public class MaterialUISelect extends JSDropdownElement {
 	 */
 	@Override
     protected WebElement getOption(String selectionText) {
-    	String xPath = "//div[contains(@class, 'MuiPopover-root')]/div[3]/ul/li[contains(text(),'" + selectionText + "')]";
+//    	String xPath = "//div[contains(@class, 'MuiPopover-root')]/div[3]/ul/li[contains(text(),'" + selectionText + "')]";
+    	String xPath = ConfigurationManager.getProperty("MaterialUISelect.getOption.ByString");
+    	xPath = StringUtils.replace(xPath, "{}", selectionText);
     	log.trace("Looking for the value in the dropdown at position {} using {}", selectionText, xPath);
     	this.click();
     	return driver.findElement(By.xpath(xPath));
@@ -52,8 +57,10 @@ public class MaterialUISelect extends JSDropdownElement {
      */
 	@Override
     protected WebElement getOption(int index) {
-    	String xPath = "//div[contains(@class, 'MuiPopover-root')]/div[3]/ul/li[" + Integer.toString(index) + "]";
-    	log.trace("Looking for the value in the dropdown at position {} using {}", index, xPath);
+//    	String xPath = "//div[contains(@class, 'MuiPopover-root')]/div[3]/ul/li[" + Integer.toString(index) + "]";
+    	String xPath = ConfigurationManager.getProperty("MaterialUISelect.getOption.ByIndex");
+    	xPath = StringUtils.replace(xPath, "{}", Integer.toString(index));
+		log.trace("Looking for the value in the dropdown at position {} using {}", index, xPath);
     	this.click();
     	return driver.findElement(By.xpath(xPath));
     }

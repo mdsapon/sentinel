@@ -23,7 +23,7 @@ import io.cucumber.junit.Cucumber;
 			"com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter:"}
 	, strict = true
 //    , tags = { "not @new-tours" }
-    , tags = { "@PrimeNG" }
+    , tags = { "@MaterialUI" }
 )
 
 public class SentinelTests {
@@ -37,6 +37,8 @@ public class SentinelTests {
         System.setProperty("PrimeNGDropdown.getOption.ByIndex", "//p-dropdownitem[{}]/li");
         System.setProperty("PrimeNGDropdown.getOption.GetText", "aria-label");
         System.setProperty("PrimeNGDropdown.getOption.GetSelectedText", "//span[contains(@class, 'p-dropdown-label')]");
+        System.setProperty("MaterialUISelect.getOption.ByString", "//div[contains(@class, 'MuiPopover-root')]/div[3]/ul/li[contains(text(),'{}')]");
+        System.setProperty("MaterialUISelect.getOption.ByIndex", "//div[contains(@class, 'MuiPopover-root')]/div[3]/ul/li[{}]");
         WebDriverFactory.instantiateWebDriver();
     }
 

@@ -49,7 +49,6 @@ public class PrimeNGDropdown extends JSDropdownElement {
 		String xTagName = this.element().getTagName();
     	String xPath = ConfigurationManager.getProperty("PrimeNGDropdown.getOption.ByString");
     	xPath = StringUtils.replace(xPath, "{}", selectionText);
-//    	String xPath = "//li[@aria-label=\"" + selectionText + "\"]";
     	log.trace("Trying to click option {} from downdown using the xpath {}{}", selectionText, xTagName, xPath);
     	this.click();
     	return this.element().findElement(By.xpath(xPath));
@@ -66,7 +65,6 @@ public class PrimeNGDropdown extends JSDropdownElement {
     	String xTagName = this.element().getTagName();
     	String xPath = ConfigurationManager.getProperty("PrimeNGDropdown.getOption.ByIndex");
     	xPath = StringUtils.replace(xPath, "{}", Integer.toString(index));
-//    	String xPath = "//p-dropdownitem[" + Integer.toString(index) + "]/li";
     	log.trace("Trying to click option {} from downdown using the xpath {}{}", index, xTagName, xPath);
     	this.click();
     	return this.element().findElement(By.xpath(xPath));

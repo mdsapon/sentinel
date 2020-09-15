@@ -2,11 +2,13 @@ package com.dougnoel.sentinel.elements.dropdowns;
 
 import java.util.Map;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
+import com.dougnoel.sentinel.configurations.ConfigurationManager;
 import com.dougnoel.sentinel.configurations.TimeoutManager;
 
 /**
@@ -45,7 +47,9 @@ public class PrimeNGDropdown extends JSDropdownElement {
     protected WebElement getOption(String selectionText) {
 		TimeoutManager.wait(SELECTWAITTIME);
 		String xTagName = this.element().getTagName();
-    	String xPath = "//li[@aria-label=\"" + selectionText + "\"]";
+    	String xPath = ConfigurationManager.getProperty("PrimeNGDropdown.getOption.ByString");
+    	xPath = StringUtils.replace(xPath, "{}", selectionText);
+//    	String xPath = "//li[@aria-label=\"" + selectionText + "\"]";
     	log.trace("Trying to click option {} from downdown using the xpath {}{}", selectionText, xTagName, xPath);
     	this.click();
     	return this.element().findElement(By.xpath(xPath));
@@ -60,7 +64,9 @@ public class PrimeNGDropdown extends JSDropdownElement {
     protected WebElement getOption(int index) {
 		TimeoutManager.wait(SELECTWAITTIME);
     	String xTagName = this.element().getTagName();
-    	String xPath = "//p-dropdownitem[" + Integer.toString(index) + "]/li";
+    	String xPath = ConfigurationManager.getProperty("PrimeNGDropdown.getOption.ByIndex");
+    	xPath = StringUtils.replace(xPath, "{}", Integer.toString(index));
+//    	String xPath = "//p-dropdownitem[" + Integer.toString(index) + "]/li";
     	log.trace("Trying to click option {} from downdown using the xpath {}{}", index, xTagName, xPath);
     	this.click();
     	return this.element().findElement(By.xpath(xPath));
@@ -74,7 +80,8 @@ public class PrimeNGDropdown extends JSDropdownElement {
      */
 	@Override
     public String getText(int index) {
-    	return getOption(index).getAttribute("aria-label");
+		String attributeName = ConfigurationManager.getProperty("PrimeNGDropdown.getOption.GetText");
+    	return getOption(index).getAttribute(attributeName);
     }
     
     /**
@@ -83,10 +90,7 @@ public class PrimeNGDropdown extends JSDropdownElement {
      */
 	@Override
     public String getSelectedText() {
-    	try {
-		return this.element().findElement(By.xpath("//label")).getText(); //TODO: apparently deprecated on 5/25/2020 figure out if we can remove this immediately
-    	} catch (org.openqa.selenium.NoSuchElementException e) {
-    		return this.element().findElement(By.xpath("//span[contains(@class, 'ui-dropdown-label')]")).getText();
-    	}
+		String xPathText = ConfigurationManager.getProperty("PrimeNGDropdown.getOption.GetSelectedText");
+		return this.element().findElement(By.xpath(xPathText)).getText();
    }
 }

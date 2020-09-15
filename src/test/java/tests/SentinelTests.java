@@ -22,7 +22,8 @@ import io.cucumber.junit.Cucumber;
 	, plugin = {"json:target/cucumber.json",
 			"com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter:"}
 	, strict = true
-  , tags = { "not @new-tours" }
+//    , tags = { "not @new-tours" }
+    , tags = { "@PrimeNG" }
 )
 
 public class SentinelTests {
@@ -32,6 +33,10 @@ public class SentinelTests {
     public static void setUpBeforeClass() throws IOException, SentinelException {
         System.setProperty("org.freemarker.loggerLibrary", "none");
         System.setProperty("env", "dev"); // Set the environment (dev/qa/stage/prod/etc)
+        System.setProperty("PrimeNGDropdown.getOption.ByString", "//li[@aria-label=\"{}\"]");
+        System.setProperty("PrimeNGDropdown.getOption.ByIndex", "//p-dropdownitem[{}]/li");
+        System.setProperty("PrimeNGDropdown.getOption.GetText", "aria-label");
+        System.setProperty("PrimeNGDropdown.getOption.GetSelectedText", "//span[contains(@class, 'p-dropdown-label')]");
         WebDriverFactory.instantiateWebDriver();
     }
 
